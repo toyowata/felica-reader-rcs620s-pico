@@ -1,0 +1,6 @@
+.build
+*.pyc
+
+cmake_build
+build
+BUILD
