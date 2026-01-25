@@ -84,34 +84,35 @@ https://github.com/raspberrypi/picotool
 ### リポジトリのクローン
 
 ```bash
-$ git clone --recursive https://github.com/toyowata/felica-reader-rcs620s-pico
+$ git clone https://github.com/toyowata/felica-reader-rcs620s-pico
 $ cd felica-reader-rcs620s-pico
 $ mkdir build && cd build
 ```
 
 ### ビルド
 
-PICO_SDK_PATHを設定します。
+PICO_SDK_PATHにPICO SDKをインストールしたパスを設定します。
 
 ```
 $ export PICO_SDK_PATH=<pico-sdk-path>
 ```
 
+ボード名を指定して、ビルドします。  
 Raspberry Pi Pico の場合
 ```
-$ cmake .. -GNinja -DPICO_BOARD=PICO
+$ cmake .. -GNinja -DPICO_BOARD=pico
 $ ninja
 ```
 
 Raspberry Pi Pico 2 の場合
-```
-$ cmake .. -GNinja -DPICO_BOARD=PICO2
+```bash
+$ cmake .. -GNinja -DPICO_BOARD=pico2
 $ ninja
 ```
 
 PIMORONI Tiny 2040 の場合
-```
-$ cmake .. -GNinja -DPICO_BOARD=PIMORONI_TINY2040
+```bash
+$ cmake .. -GNinja -DPICO_BOARD=pimoroni_tiny2040
 $ ninja
 ```
 

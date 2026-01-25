@@ -15,7 +15,7 @@
  * Constant
  * -------------------------------- */
 
-#define RCS620S_DEFAULT_TIMEOUT  1000
+#define RCS620S_DEFAULT_TIMEOUT  5
 
 /* --------------------------------
  * Variable

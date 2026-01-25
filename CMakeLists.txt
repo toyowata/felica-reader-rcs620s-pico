@@ -1,13 +1,30 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.13)
+
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+# == DO NOT EDIT THE FOLLOWING LINES for the Raspberry Pi Pico VS Code Extension to work ==
+if(WIN32)
+    set(USERHOME $ENV{USERPROFILE})
+else()
+    set(USERHOME $ENV{HOME})
+endif()
+set(sdkVersion 2.2.0)
+set(toolchainVersion 14_2_Rel1)
+set(picotoolVersion 2.2.0-a4)
+set(picoVscode ${USERHOME}/.pico-sdk/cmake/pico-vscode.cmake)
+if (EXISTS ${picoVscode})
+    include(${picoVscode})
+endif()
+# ====================================================================================
+set(PICO_BOARD pico2 CACHE STRING "Board type")
 
 # Pull in SDK (must be before project)
 include(pico_sdk_import.cmake)
-include(pico_extras_import_optional.cmake)
 
 set(PROJECT felica_reader_pico)
-project(${PROJECT} C CXX ASM)
-set(CMAKE_C_STANDARD 11)
-set(CMAKE_CXX_STANDARD 17)
+project(felica_reader_pico C CXX ASM)
 
 # If you want debug output from USB (pass -DPICO_STDIO_USB=1) this ensures you don't lose any debug output while USB is set up
 if (NOT DEFINED PICO_STDIO_USB_CONNECT_WAIT_TIMEOUT_MS)
@@ -25,8 +42,6 @@ if (CMAKE_C_COMPILER_ID STREQUAL "GNU")
     add_compile_options(-Wno-maybe-uninitialized)
 endif()
 
-# add_subdirectory(SB1602E)
-
 add_executable(${PROJECT}
     main.cpp
     driver/SB1602E.cpp
@@ -34,10 +49,8 @@ add_executable(${PROJECT}
     driver/AS289R2.cpp
 )
 
-target_link_libraries(${PROJECT} pico_stdlib hardware_i2c)
-
 # Set port numbers on the board
-if (PICO_BOARD STREQUAL "PIMORONI_TINY2040")
+if (PICO_BOARD STREQUAL "pimoroni_tiny2040")
     target_compile_definitions(${PROJECT} PRIVATE
         SB1602E_I2C_SDA=26
         SB1602E_I2C_SCL=27
@@ -46,7 +59,7 @@ if (PICO_BOARD STREQUAL "PIMORONI_TINY2040")
         AS289R2_UART_TX=4
         AS289R2_UART_RX=5
     )
-elseif (PICO_BOARD STREQUAL "PICO" OR PICO_BOARD STREQUAL "PICO_W" OR PICO_BOARD STREQUAL "PICO2")
+elseif (PICO_BOARD STREQUAL "pico" OR PICO_BOARD STREQUAL "pico_w" OR PICO_BOARD STREQUAL "pico2")
     target_compile_definitions(${PROJECT} PRIVATE
         SB1602E_I2C_SDA=14
         SB1602E_I2C_SCL=15
@@ -63,6 +76,8 @@ endif()
 pico_enable_stdio_usb(${PROJECT} 1)
 pico_enable_stdio_uart(${PROJECT} 0)
 
+target_link_libraries(${PROJECT} pico_stdlib hardware_i2c)
+
 # create map/bin/hex/uf2 file etc.
-pico_add_extra_outputs(${PROJECT})
+pico_add_extra_outputs(felica_reader_pico)
 
