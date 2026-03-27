@@ -1208,6 +1208,7 @@ int get_station_name(char *buf, int area, int line, int station) {
 }
 
 void get_bus_name(char *buf, int code) {
+    char tmp[60];
     switch(code) {
         case 0x0907:
             strcat(buf, "北海道中央バス");
@@ -1218,8 +1219,17 @@ void get_bus_name(char *buf, int code) {
         case 0x090D:
             strcat(buf, "岩手県交通");
             break;
+        case 0x0A0D:
+            strcat(buf, "昭和自動車");
+            break;
+        case 0x0A1F:
+            strcat(buf, "松浦鉄道");
+            break;
         case 0x0C0C:
             strcat(buf, "関東自動車");
+            break;
+        case 0x0C4A:
+            strcat(buf, "都営バス・都電");
             break;
         case 0x0C6B:
             strcat(buf, "神奈中バス");
@@ -1230,11 +1240,15 @@ void get_bus_name(char *buf, int code) {
         case 0x0C8A:
             strcat(buf, "JR東日本");
             break;
+        case 0x0D18:
+            strcat(buf, "しずてつジャストライン");
+            break;
         case 0xA001:
             strcat(buf, "西鉄バス");
             break;
         default:
-            strcat(buf, "不明");
+            snprintf(tmp, sizeof(tmp), "不明 (%04X)", code);
+            strcat(buf, tmp);
             break;
     }
 }
