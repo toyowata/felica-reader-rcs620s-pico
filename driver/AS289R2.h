@@ -293,6 +293,9 @@ public:
      */
      int printf(const char *format, ...);
 
+protected:
+    // stub/constructor for derived classes
+    AS289R2() : uart_ch(nullptr) {}
 
 private:
     uart_inst_t* uart_ch;

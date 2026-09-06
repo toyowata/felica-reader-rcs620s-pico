@@ -11,7 +11,9 @@
 class AS289R2_STUB : public AS289R2
 {
 public:
-    using AS289R2 ::AS289R2;
+    // Explicitly calling the non-parameter constructor of the base class AS289R2()
+    AS289R2_STUB(int txd = 0, int rxd = 0, uart_inst_t* ch = nullptr, uint32_t baud = 9600)
+        : AS289R2() {}
     void initialize(void) {};
     void putLineFeed(uint32_t lines) {};
     void clearBuffer(void) {};
