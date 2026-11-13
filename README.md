@@ -4,7 +4,7 @@
 
 FeliCa リーダー・ライターを使用したSuica/PASMO履歴リーダです。
 
-USBケーブルでPaspberry Pi picoとパソコンと接続し、履歴データを表示させることができます。I2C接続LCDを付ければ、現在の残高を表示します。残高表示は、以下のFelica対応ICカードに対応しています。
+USBケーブルでPaspberry Pi Picoとパソコンと接続し、履歴データを表示させることができます。I2C接続LCDを付ければ、現在の残高を表示します。残高表示は、以下のFelica対応ICカードに対応しています。
 
 * Suica
     * ICOCA
@@ -34,7 +34,7 @@ USBケーブルでPaspberry Pi picoとパソコンと接続し、履歴データ
 
 # 使用した機材
 
-* Paspberry Pi pico  
+* Paspberry Pi Pico  
 https://www.switch-science.com/catalog/6900/
 * PIMORONI Tiny 2040
 https://www.switch-science.com/products/7615
@@ -49,9 +49,9 @@ https://www.switch-science.com/catalog/2553/
 
 # デバイスとの接続
 
-Pasberry Pi picoと他の部品は以下のように接続してください。
+Pasberry Pi Picoと他の部品は以下のように接続してください。
 
-|Rasberry Pi pico|Tiny 2040|RC-S620/S|I2C LCD|AS-289R2|
+|Rasberry Pi Pico|Tiny 2040|RC-S620/S|I2C LCD|AS-289R2|
 |---|---|---|---|---|
 |GPIO4 (pin 6)|GPIO4 (pin 12)|||RxD1 (D1)|
 |VSYS (pin 39)|VBUS (pin 1)|||5V|
@@ -60,12 +60,12 @@ Pasberry Pi picoと他の部品は以下のように接続してください。
 |GPIO16 (pin 21)|GPIO0 (pin 16)|RXD (pin 2)|||
 |GPIO17 (pin 22)|GPIO1 (pin 15)|TXD (pin 3)|||
 |GPIO14 (pin 19)|GPIO26 (pin 7)||SDA (pin 4)||
-|GPIO15 (pin 20)|GPIO27 (ping 6)||SCL (pin 5)||
+|GPIO15 (pin 20)|GPIO27 (pin 6)||SCL (pin 5)||
 
 # 必要なツールのインストール
 
 ## ツールチェインのインストール
-以下の情報を参照して、ビルドに使用するツールチェインをインストールしてください。
+以下の情報を参照して、ビルドに使用するツールチェインをインストールしてください。  
 https://pip-assets.raspberrypi.com/categories/610-raspberry-pi-pico/documents/RP-008276-DS-1-getting-started-with-pico.pdf
 
 ## pico-sdk
@@ -116,16 +116,16 @@ $ cmake .. -GNinja -DPICO_BOARD=pimoroni_tiny2040
 $ ninja
 ```
 
-## Raspberry Pi pico に書き込む
+## Raspberry Pi Pico に書き込む
 BOOTSELモードに設定し（基板上のボタンを押したまま電源を入れる）、以下のコマンドを実行します。
 
 ```bash
-$ picotool load ./felica-reader-rcs620s-pico.bin
+$ picotool load ./felica_reader_pico.uf2
 ```
 
 ## プログラムの実行
 
-プログラム書き込み後、自動的にリセットされプログラムが起動します。  
+プログラム書き込み後、リセットするとプログラムが起動します。  
 TeraTerm, CoolTerm等のシリアルターミナルソフトウェアでパソコンと接続します（115200,8,N,1）。日本語を表示するので、UTF8が表示できるモードに設定してください。  
 FeliCa リーダー・ライター上にSuicaなどの交通系ICカードを乗せると、履歴情報が表示されます。
 
